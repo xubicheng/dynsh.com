@@ -98,7 +98,7 @@ fn shell(title: &str, description: &str, body: &str, js: &str, extra_js: &str) -
 fn header() -> &'static str {
     r##"<header class="top">
   <div class="wrap">
-    <a class="brand" href="/"><img class="brand-logo" src="/brand.png" alt="WYH" width="26" height="26">王元会</a>
+    <a class="brand" href="/"><img class="brand-logo" src="/brand.png" alt="大隐士" width="26" height="26">王元会</a>
     <nav class="nav">
       <a href="#watch">看</a>
       <a href="#create">写</a>
