@@ -57,7 +57,7 @@ fn shell(title: &str, description: &str, body: &str, js: &str, extra_js: &str) -
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes">
 <title>{title}</title>
-<meta name="description" content="{desc}">
+<meta name="description" content="大隐士 · dynsh.com — 消除隔阂；墨家兼爱非攻；天台山合和文化；阿布寻找初心。合和和波。>
 <meta name="keywords" content="王元会, 动画生成, TXT转动画, 故事动画, 文字动画, dynsh, 动物动画, IP创作">
 <meta name="author" content="王元会">
 <meta name="robots" content="index, follow, max-image-preview:large">
@@ -68,12 +68,12 @@ fn shell(title: &str, description: &str, body: &str, js: &str, extra_js: &str) -
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="王元会">
 <meta property="og:title" content="{title}">
-<meta property="og:description" content="{desc}">
+<meta property="og:description" content="大隐士 · dynsh.com — 消除隔阂；墨家兼爱非攻；天台山合和文化；阿布寻找初心。合和和波。>
 <meta property="og:url" content="https://dynsh.com/">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
-<meta name="twitter:description" content="{desc}">
+<meta name="twitter:description" content="大隐士 · dynsh.com — 消除隔阂；墨家兼爱非攻；天台山合和文化；阿布寻找初心。合和和波。>
 <script type="application/ld+json">{jsonld}</script>
 <style>{css}</style>
 </head>
@@ -264,8 +264,8 @@ pub fn landing(l: Landing<'_>) -> String {
     <div class="wrap hero-grid">
       <div>
         <p class="kicker">dynsh.com · Rust IP Lab</p>
-        <h1>把一段文字，<br>变成一部<em>会呼吸</em>的动画。</h1>
-        <p class="slogan">大隐士</p>
+        <h1>消除隔阂，从一波合和之波开始。</h1>
+        <p class="slogan">合和和波</p>
         <p class="lede">看一段 TXT 长成扁平的 CSS / HTML5 动画，下载一张可打印、可校验的 A4 纪念证书。{free_until} 前按 MIT 协议免费授权；其余事宜直接写信给作者。</p>
         <div class="hero-actions">
           <a class="btn primary" href="#create">写一个故事</a>

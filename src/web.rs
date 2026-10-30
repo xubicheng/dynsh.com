@@ -103,6 +103,7 @@ pub fn router(state: AppState) -> Router {
         .route("/lab/story/{id}", get(redirect_watch))
         .route("/lab/cert/{id}", get(redirect_cert))
         .route("/lab/verify/{id}", get(redirect_verify))
+        .route("/anim/{file}", get(anim_asset))
         .route("/favicon.ico", get(favicon))
         .route("/brand.png", get(brand_logo))
         .route("/favicon.svg", get(favicon))
@@ -877,4 +878,25 @@ async fn api_maintenance(State(state): State<AppState>) -> Response {
 async fn stats_html(State(state): State<AppState>) -> Response {
     let s = state.analytics.summary(7);
     crate::web::html_page(crate::analytics::render_stats_html(&s))
+}
+
+/// /anim/{file} — 动画产物静态文件（webm/gif/mp4）
+async fn anim_asset(Path(file): Path<String>) -> Response {
+    let base = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+        .join("assets/animation");
+    let path = base.join(&file);
+    if !path.exists() || path.parent() != Some(base.as_path()) {
+        return (StatusCode::NOT_FOUND, "not found").into_response();
+    }
+    let mime = match path.extension().and_then(|e| e.to_str()) {
+        Some("webm") => "video/webm",
+        Some("gif")   => "image/gif",
+        Some("mp4")   => "video/mp4",
+        Some("png")   => "image/png",
+        _             => "application/octet-stream",
+    };
+    match tokio::fs::read(&path).await {
+        Ok(data) => ([(header::CONTENT_TYPE, mime)], data).into_response(),
+        Err(_) => (StatusCode::NOT_FOUND, "not found").into_response(),
+    }
 }
