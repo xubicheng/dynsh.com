@@ -103,7 +103,7 @@ pub fn router(state: AppState) -> Router {
         .route("/lab/story/{id}", get(redirect_watch))
         .route("/lab/cert/{id}", get(redirect_cert))
         .route("/lab/verify/{id}", get(redirect_verify))
-        .route("/anim/{file}", get(anim_asset))
+        .route("/anim/{*file}", get(anim_asset))
         .route("/favicon.ico", get(favicon))
         .route("/brand.png", get(brand_logo))
         .route("/favicon.svg", get(favicon))
