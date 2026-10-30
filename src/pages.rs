@@ -55,13 +55,13 @@ fn shell(title: &str, description: &str, body: &str, js: &str, extra_js: &str) -
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes">
+<meta name="viewport" content="{desc}">
 <title>{title}</title>
 <meta name="description" content="大隐士 · dynsh.com — 消除隔阂；墨家兼爱非攻；天台山合和文化；阿布寻找初心。合和和波。>
-<meta name="keywords" content="王元会, 动画生成, TXT转动画, 故事动画, 文字动画, dynsh, 动物动画, IP创作">
+<meta name="keywords" content="{desc}">
 <meta name="author" content="王元会">
-<meta name="robots" content="index, follow, max-image-preview:large">
-<meta name="theme-color" content="#5d8aa8">
+<meta name="robots" content="{desc}">
+<meta name="theme-color" content="#669999">
 <link rel="canonical" href="https://dynsh.com/">
 <link rel="icon" type="image/png" href="{favicon}">
 <link rel="apple-touch-icon" href="{favicon}">
@@ -169,7 +169,7 @@ fn corpus_block(c: &serde_json::Value) -> String {
             format!(
                 r##"<i style="flex:{flex};background:{accent}" title="{beat}"></i>"##,
                 flex = share.max(4),
-                accent = if empty { "#dcdfe3".to_string() } else { esc(p["color"].as_str().or_else(|| p["accent"].as_str()).unwrap_or("#e8a33d")) },
+                accent = if empty { "#dedede".to_string() } else { esc(p["color"].as_str().or_else(|| p["accent"].as_str()).unwrap_or("#ff9933")) },
                 beat = esc(p["animalName"].as_str().or_else(|| p["beat"].as_str()).unwrap_or(""))
             )
         })
@@ -181,7 +181,7 @@ fn corpus_block(c: &serde_json::Value) -> String {
             let share = p["share"].as_u64().unwrap_or(0);
             format!(
                 r##"<span><i style="background:{accent}"></i>{name} {n} 幕 · {share}%</span>"##,
-                accent = if share == 0 { "#dcdfe3".to_string() } else { esc(p["color"].as_str().or_else(|| p["accent"].as_str()).unwrap_or("#e8a33d")) },
+                accent = if share == 0 { "#dedede".to_string() } else { esc(p["color"].as_str().or_else(|| p["accent"].as_str()).unwrap_or("#ff9933")) },
                 name = esc(p["realmName"].as_str().or_else(|| p["phaseName"].as_str()).unwrap_or("")),
                 n = p["scenes"].as_u64().unwrap_or(0),
                 share = share
@@ -545,7 +545,7 @@ pub fn landing(l: Landing<'_>) -> String {
     shell(
         "大隐士 · Dynsh",
         &format!(
-            "大隐士 — 从 TXT 生成扁平化 CSS / HTML5 动画，下载可打印的 A4 纪念证书；{} 前按 MIT 协议免费授权。",
+            "大隐士 · dynsh.com — 消除隔阂；墨家兼爱非攻；天台山合和文化；阿布寻找初心。合和和波。{} 前按 MIT 协议免费授权。",
             cfg.free_until
         ),
         &body,
@@ -603,7 +603,7 @@ pub fn verify_page(cfg: &Config, req: &Request, story_exists: bool) -> String {
   <div class="panel verify-card">
     <span class="index">CERTIFICATE VERIFY</span>
     <h1>证书校验</h1>
-    <p class="mono" style="color:#6b7078">编号 {id}</p>
+    <p class="mono" style="color:#6f6f6f">编号 {id}</p>
     <dl class="kv">
       <dt>状态</dt><dd>{status}</dd>
       <dt>持有人</dt><dd>{name}</dd>
@@ -651,7 +651,7 @@ pub fn studio_page(cfg: &Config) -> String {
     <div>
       <span class="index">STUDIO / 后台</span>
       <h1>工作台</h1>
-      <p style="margin:6px 0 0;color:#6b7078">申请、作品、原画喂养。公众页面不显示这里的任何入口。</p>
+      <p style="margin:6px 0 0;color:#6f6f6f">申请、作品、原画喂养。公众页面不显示这里的任何入口。</p>
     </div>
     <div class="token-row">
       <input class="input" id="token" placeholder="管理令牌" style="max-width:260px" autocomplete="off">
