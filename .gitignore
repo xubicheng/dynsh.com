@@ -1,0 +1,8 @@
+target/
+.env
+data/
+*.log
+*.bak
+*.bak.*
+node_modules/
+Cargo.lock.bak*
