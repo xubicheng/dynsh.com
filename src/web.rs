@@ -885,7 +885,7 @@ async fn anim_asset(Path(file): Path<String>) -> Response {
     let base = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("assets/animation");
     let path = base.join(&file);
-    if !path.exists() || path.parent() != Some(base.as_path()) {
+    if !path.exists() || !path.starts_with(&base) {
         return (StatusCode::NOT_FOUND, "not found").into_response();
     }
     let mime = match path.extension().and_then(|e| e.to_str()) {
