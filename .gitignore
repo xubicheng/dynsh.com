@@ -6,3 +6,9 @@ data/
 *.bak.*
 node_modules/
 Cargo.lock.bak*
+
+# animation pipeline (大产物不入库)
+assets/animation/frames/
+assets/animation/webm/
+assets/animation/gif/
+assets/animation/blend/*/*.blend
