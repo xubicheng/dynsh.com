@@ -16,3 +16,4 @@ assets/animation/blend/*/*.blend
 # python cache
 __pycache__/
 *.pyc
+dynsh
