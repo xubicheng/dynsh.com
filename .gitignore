@@ -12,3 +12,7 @@ assets/animation/frames/
 assets/animation/webm/
 assets/animation/gif/
 assets/animation/blend/*/*.blend
+
+# python cache
+__pycache__/
+*.pyc
