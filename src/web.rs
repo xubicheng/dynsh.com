@@ -836,7 +836,7 @@ async fn track_hit(
     let ip = crate::web::extract_ip(&headers);
     let ua = headers.get("user-agent").and_then(|v| v.to_str().ok()).unwrap_or("").to_string();
     let referer = headers.get("referer").and_then(|v| v.to_str().ok()).unwrap_or("").to_string();
-    let mut resp = next.run(req).await;
+    let resp = next.run(req).await;
     let status = resp.status().as_u16();
     let latency = start.elapsed().as_millis() as u64;
     let a = state.analytics.clone();

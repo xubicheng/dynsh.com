@@ -17,3 +17,6 @@ assets/animation/blend/*/*.blend
 __pycache__/
 *.pyc
 dynsh
+
+# atomic-assets 外部符号链接
+assets/atomic/
