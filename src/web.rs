@@ -108,7 +108,9 @@ pub fn router(state: AppState) -> Router {
         .route("/brand.png", get(brand_logo))
         .route("/favicon.svg", get(favicon))
         .route("/robots.txt", get(robots_txt))
+        .route("/f9a333eccf5268309f87cd22e554820a183934266f94d323876d9247c7b6c3f5.txt", get(indexnow_key))
         .route("/sitemap.xml", get(sitemap_xml))
+        .route("/llms.txt", get(llms_txt))
         .layer(DefaultBodyLimit::max(13 * 1024 * 1024))
         .route("/api/track", post(api_track))
         .route("/api/stats", get(api_stats))
@@ -222,7 +224,26 @@ async fn brand_logo() -> Response {
 
 /// robots.txt：允许全部爬虫，指定 sitemap
 async fn robots_txt() -> Response {
-    let body = "User-agent: *\nAllow: /\nSitemap: https://dynsh.com/sitemap.xml\n";
+    let body = r#"User-agent: *
+Allow: /
+Disallow: /api/
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://dynsh.com/sitemap.xml
+"#;
+    ([(header::CONTENT_TYPE, "text/plain; charset=utf-8")], body).into_response()
+}
+
+async fn indexnow_key() -> Response {
+    let body = "f9a333eccf5268309f87cd22e554820a183934266f94d323876d9247c7b6c3f5";
     ([(header::CONTENT_TYPE, "text/plain; charset=utf-8")], body).into_response()
 }
 
@@ -238,6 +259,43 @@ async fn sitemap_xml() -> Response {
 </urlset>"#;
     ([(header::CONTENT_TYPE, "application/xml; charset=utf-8")], body).into_response()
 }
+async fn llms_txt() -> Response {
+    let body = r#"大隐士 · Dynsh — 合和和波
+Site / 站点: https://dynsh.com
+Languages / 语言: 简体中文
+Author / 作者: 王元会
+License / 协议: MIT（2027-12-31 前免费授权）
+
+dynsh.com 是一个关于"合和"的个人作品站。
+王元会以阿布为主角，把一段段文字变成会呼吸的动画短片，
+探索"消除隔阂"这个命题——墨家兼爱非攻，天台山合和文化，
+阿布在寻找自己的初心，也邀请所有愿意的人一起。
+
+这是一个故事站，不是社交平台。没有点赞，没有评论，
+只有一段段动画和它们背后的文字。
+
+## 索引范围 / What to index
+- 首页及 hash 锚点（#watch 看动画 / #create 写故事 / #world 四相世界观）
+- 故事详情页：每个动画故事的独立页面
+- /license 授权说明页
+- 不索引 /api/ 下所有端点（仅用于前端数据获取）
+
+## 世界观 / Worldview
+- 四相：风、火、水、土 — 对应四种沟通方式
+- 阿布：故事主角，一个寻找初心的旅者
+- 消除隔阂：网站核心命题
+
+## 技术说明 / Technical notes
+- 动画渲染: Blender 3.x Python pipeline
+- 文字生成: 规则驱动 + LLM 辅助
+- 所有产物按 MIT 协议授权
+
+## 联系 / Contact
+- 邮箱: bc.xu@hotmail.com
+"#;
+    ([(header::CONTENT_TYPE, "text/plain; charset=utf-8")], body).into_response()
+}
+
 async fn redirect_mail() -> Response {
     redirect("/#mail")
 }

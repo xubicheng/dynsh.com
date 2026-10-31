@@ -55,12 +55,12 @@ fn shell(title: &str, description: &str, body: &str, js: &str, extra_js: &str) -
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="{desc}">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=yes">
 <title>{title}</title>
-<meta name="description" content="大隐士 · dynsh.com — 消除隔阂；墨家兼爱非攻；天台山合和文化；阿布寻找初心。合和和波。>
-<meta name="keywords" content="{desc}">
+<meta name="description" content="{desc}">
+<meta name="keywords" content="大隐士, dynsh, 合和和波, 阿布, 王元会, 墨家兼爱非攻, 天台山, 消除隔阂, 文字动画, IP实验场">
 <meta name="author" content="王元会">
-<meta name="robots" content="{desc}">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#669999">
 <link rel="canonical" href="https://dynsh.com/">
 <link rel="icon" type="image/png" href="{favicon}">
@@ -68,12 +68,12 @@ fn shell(title: &str, description: &str, body: &str, js: &str, extra_js: &str) -
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="王元会">
 <meta property="og:title" content="{title}">
-<meta property="og:description" content="大隐士 · dynsh.com — 消除隔阂；墨家兼爱非攻；天台山合和文化；阿布寻找初心。合和和波。>
+<meta property="og:description" content="{desc}">
 <meta property="og:url" content="https://dynsh.com/">
 <meta property="og:locale" content="zh_CN">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
-<meta name="twitter:description" content="大隐士 · dynsh.com — 消除隔阂；墨家兼爱非攻；天台山合和文化；阿布寻找初心。合和和波。>
+<meta name="twitter:description" content="{desc}">
 <script type="application/ld+json">{jsonld}</script>
 <style>{css}</style>
 </head>
