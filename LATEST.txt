@@ -1,0 +1,4 @@
+date=2026-11-01
+host=VM-0-11-ubuntu
+source=nc
+key=sj wh 37 nc
