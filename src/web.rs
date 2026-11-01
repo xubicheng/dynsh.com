@@ -103,6 +103,7 @@ pub fn router(state: AppState) -> Router {
         .route("/lab/story/{id}", get(redirect_watch))
         .route("/lab/cert/{id}", get(redirect_cert))
         .route("/lab/verify/{id}", get(redirect_verify))
+        .route("/anim", get(anim_gallery))
         .route("/anim/{*file}", get(anim_asset))
         .route("/favicon.ico", get(favicon))
         .route("/brand.png", get(brand_logo))
@@ -939,6 +940,59 @@ async fn stats_html(State(state): State<AppState>) -> Response {
 }
 
 /// /anim/{file} — 动画产物静态文件（webm/gif/mp4）
+/// /anim — 256 色动画库页：扫描 gif / webm 产物并渲染
+async fn anim_gallery() -> Response {
+    let base = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("assets/animation");
+
+    // webm 目录里的 stem 集合，用于在 GIF 卡片上附带 WebM 下载
+    let mut webm_stems: std::collections::BTreeSet<String> = std::collections::BTreeSet::new();
+    if let Ok(mut rd) = tokio::fs::read_dir(base.join("webm")).await {
+        while let Some(entry) = rd.next_entry().await.ok().flatten() {
+            let p = entry.path();
+            if p.extension()
+                .map(|e| e.eq_ignore_ascii_case("webm"))
+                .unwrap_or(false)
+            {
+                if let Some(stem) = p.file_stem().and_then(|s| s.to_str()) {
+                    webm_stems.insert(stem.to_string());
+                }
+            }
+        }
+    }
+
+    let mut items: Vec<pages::AnimItem> = Vec::new();
+    if let Ok(mut rd) = tokio::fs::read_dir(base.join("gif")).await {
+        while let Some(entry) = rd.next_entry().await.ok().flatten() {
+            let p = entry.path();
+            if !p.extension()
+                .map(|e| e.eq_ignore_ascii_case("gif"))
+                .unwrap_or(false)
+            {
+                continue;
+            }
+            let name = match p.file_name().and_then(|s| s.to_str()) {
+                Some(n) => n.to_string(),
+                None => continue,
+            };
+            // metadata 跟随符号链接，拿到真实体积
+            let bytes = tokio::fs::metadata(&p).await.map(|m| m.len()).unwrap_or(0);
+            let stem = p
+                .file_stem()
+                .and_then(|s| s.to_str())
+                .unwrap_or("")
+                .to_string();
+            items.push(pages::AnimItem {
+                name,
+                webm: webm_stems.contains(&stem),
+                bytes,
+            });
+        }
+    }
+    items.sort_by(|a, b| a.name.cmp(&b.name));
+
+    html_page(pages::anim_gallery(&items))
+}
+
 async fn anim_asset(Path(file): Path<String>) -> Response {
     let base = std::path::PathBuf::from(env!("CARGO_MANIFEST_DIR"))
         .join("assets/animation");

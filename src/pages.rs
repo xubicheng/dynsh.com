@@ -105,6 +105,7 @@ fn header() -> &'static str {
       <a href="#experience">领</a>
       <a href="#mail">寄</a>
       <a href="#world">四相</a>
+      <a href="/anim">动画库</a>
     </nav>
   </div>
 </header>
@@ -115,6 +116,7 @@ fn header() -> &'static str {
     <li><a href="#experience"><span class="tab-num">03</span>领</a></li>
     <li><a href="#mail"><span class="tab-num">04</span>寄</a></li>
     <li><a href="#world"><span class="tab-num">05</span>四相</a></li>
+    <li><a href="/anim"><span class="tab-num">06</span>动画库</a></li>
   </ul>
 </nav>
 <div class="orient-tip" id="orient-tip">横屏观看动画效果更佳</div>"##
@@ -725,6 +727,90 @@ pub fn studio_page(cfg: &Config) -> String {
         &body,
         "",
         &format!("<script src=\"/js/autosave.js\" defer></script><script>{}</script>", STUDIO_JS),
+    )
+}
+
+/// 动画库条目（GIF 预览 + 可选 WebM）
+pub struct AnimItem {
+    pub name: String,
+    pub webm: bool,
+    pub bytes: u64,
+}
+
+fn human_bytes(n: u64) -> String {
+    if n >= 1024 * 1024 {
+        format!("{:.1} MB", n as f64 / 1048576.0)
+    } else if n >= 1024 {
+        format!("{:.0} KB", n as f64 / 1024.0)
+    } else {
+        format!("{} B", n)
+    }
+}
+
+/// /anim — 256 色动画库：一览全部 GIF / WebM 产物
+pub fn anim_gallery(items: &[AnimItem]) -> String {
+    let mut cards = String::new();
+    let mut total: u64 = 0;
+    for it in items {
+        total += it.bytes;
+        let stem = it.name.trim_end_matches(".gif");
+        let webm_link = if it.webm {
+            format!(
+                "<a class=\"chip\" href=\"/anim/webm/{stem}.webm\" download>WebM</a>",
+                stem = esc(stem)
+            )
+        } else {
+            String::new()
+        };
+        cards.push_str(&format!(
+            r##"
+      <article class="anim-card">
+        <img class="anim-thumb" src="/anim/gif/{name}" alt="{stem} 动画预览" loading="lazy" decoding="async">
+        <div class="anim-meta">
+          <h3>{stem}</h3>
+          <p>256 色 GIF · {size}</p>
+          <div class="anim-links">
+            <a class="chip accent" href="/anim/gif/{name}" download>GIF</a>
+            {webm}
+          </div>
+        </div>
+      </article>"##,
+            name = esc(&it.name),
+            stem = esc(stem),
+            size = human_bytes(it.bytes),
+            webm = webm_link,
+        ));
+    }
+
+    let empty = if items.is_empty() {
+        "<p class=\"anim-empty\">动画库还是空的，等今晚的渲染任务跑完再来。</p>"
+    } else {
+        ""
+    };
+
+    let body = format!(
+        r##"{header}
+<main class="wrap anim-page">
+  <h1>256 色动画库</h1>
+  <p class="lede">共 {count} 部 · {total} · 由 Blender + ffmpeg 调色板流水线生成，GIF 与 WebM 双份交付；点开即看，也可直接下载带走。</p>
+  <div class="anim-grid">{cards}</div>
+  {empty}
+  <div class="downloads"><a class="btn" href="/">返回首页</a><a class="btn ghost" href="/studio">去创作</a></div>
+</main>
+<footer class="foot"><div class="wrap footer-bottom"><span>© 2026 dynsh.com · 王元会</span><span>MIT · 动画素材来自 atomic-assets</span></div></footer>"##,
+        header = header(),
+        count = items.len(),
+        total = human_bytes(total),
+        cards = cards,
+        empty = empty,
+    );
+
+    shell(
+        "256 色动画库 · 王元会",
+        "dynsh.com 的 256 色动画库：Blender + ffmpeg 渲染的 GIF 与 WebM 一览。",
+        &body,
+        "",
+        "",
     )
 }
 
