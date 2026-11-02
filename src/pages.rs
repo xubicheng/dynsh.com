@@ -76,11 +76,13 @@ fn shell(title: &str, description: &str, body: &str, js: &str, extra_js: &str) -
 <meta name="twitter:description" content="{desc}">
 <script type="application/ld+json">{jsonld}</script>
 <style>{css}</style>
+{aura_css}
 </head>
 <body>
 {body}
 <script>{js}</script>
 {extra_js}
+{aura_js}
 </body>
 </html>
 "##,
@@ -91,7 +93,9 @@ fn shell(title: &str, description: &str, body: &str, js: &str, extra_js: &str) -
         css = CSS,
         body = body,
         js = js,
-        extra_js = extra_js
+        extra_js = extra_js,
+        aura_css = crate::aura::head(),
+        aura_js = crate::aura::init()
     )
 }
 
@@ -521,6 +525,7 @@ pub fn landing(l: Landing<'_>) -> String {
       </p>
       <p class="beian-line"><a href="http://beian.miit.gov.cn/" rel="noreferrer" target="_blank">苏ICP备17031763号-6</a></p>
     </div>
+    {aura_extra}
   </div>
 </footer>"##,
         header = header(),
@@ -542,6 +547,7 @@ pub fn landing(l: Landing<'_>) -> String {
         engine = "dynsh/2.0-rust",
         tm_b64 = base64_encode(TRADEMARK_PNG),
         badge_b64 = base64_encode(BEIAN_BADGE_PNG),
+        aura_extra = crate::aura::footer_extra(),
     );
 
     shell(

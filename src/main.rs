@@ -11,6 +11,8 @@
 
 mod analytics;
 mod animate;
+mod aura;
+mod wxshare;
 mod canvas2d;
 mod certificate;
 mod config;

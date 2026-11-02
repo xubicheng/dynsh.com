@@ -116,6 +116,7 @@ pub fn router(state: AppState) -> Router {
         .route("/api/track", post(api_track))
         .route("/api/stats", get(api_stats))
         .route("/api/maintenance", get(api_maintenance))
+        .route("/api/wx/signature", get(crate::wxshare::signature))
         .route("/stats", get(stats_html))
         .fallback(not_found)
         .with_state(state.clone())
