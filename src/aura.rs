@@ -74,42 +74,40 @@ const CSS: &str = r#"
 .aura-links-label{opacity:.6;letter-spacing:.1em;font-size:10px;text-transform:uppercase}
 .aura-links a{color:inherit;text-decoration:none;border-bottom:1px dotted currentColor;opacity:.82}
 .aura-links a:hover{opacity:1;border-bottom-style:solid}
-.aura-share-trigger{color:inherit;text-decoration:none;border-bottom:1px dotted currentColor;cursor:pointer;
-  opacity:0;transform:translateY(4px);transition:opacity .55s ease,transform .55s ease}
-body.aura-awake .aura-share-trigger{opacity:.82;transform:none}
-.aura-share-trigger::before{content:"\25CF";margin-right:5px;color:#c98f45}
-.aura-orb{position:fixed;right:18px;bottom:18px;z-index:2147483001;appearance:none;
-  border:1px solid rgba(200,160,90,.4);border-radius:999px;background:rgba(255,250,240,.93);color:#4a3a22;
-  padding:9px 14px;font:600 13px/1 system-ui,-apple-system,sans-serif;cursor:pointer;
-  box-shadow:0 8px 28px rgba(80,60,30,.16),0 0 24px rgba(255,200,120,.35);
-  opacity:0;transform:translateY(10px) scale(.96);transition:opacity .45s ease,transform .45s ease}
-.aura-orb.show{opacity:1;transform:none}
-.aura-orb::before{content:"\25CF";margin-right:6px;color:#c98f45}
+.aura-share-trigger{color:inherit;text-decoration:none;cursor:pointer;
+  opacity:0;transition:opacity .55s ease}
+body.aura-awake .aura-share-trigger{opacity:.72}
+.aura-share-trigger:hover{opacity:1;text-decoration:underline;text-underline-offset:3px}
+.aura-orb{position:fixed;right:14px;bottom:14px;z-index:2147483001;appearance:none;
+  width:34px;height:34px;padding:0;border:1px solid rgba(130,115,90,.28);border-radius:50%;
+  background:rgba(255,252,246,.9);color:#5a4a30;font:15px/1 system-ui,-apple-system,sans-serif;
+  cursor:pointer;box-shadow:0 4px 14px rgba(80,60,30,.12);
+  opacity:0;transform:scale(.9);transition:opacity .35s ease,transform .35s ease}
+.aura-orb.show{opacity:.9;transform:none}
+.aura-orb:hover{opacity:1}
 
-/* ---------- 分享卡片 ---------- */
-.aura-share-panel{left:auto!important;right:18px;top:auto!important;bottom:72px;width:min(380px,calc(100vw - 32px))}
-.aura-share-title{font-weight:650;font-size:14px;color:#2a352f;margin:2px 0 2px}
-.aura-share-url{margin:0 0 10px;font:12px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;color:#6b5c46;
-  word-break:break-all;background:rgba(160,140,100,.08);padding:6px 8px;border-radius:8px}
-.aura-share-actions{display:flex;flex-wrap:wrap;gap:8px}
-.aura-act{appearance:none;border:1px solid rgba(120,100,60,.32);background:rgba(255,255,255,.7);color:#3a3226;
-  border-radius:10px;padding:8px 12px;font:13px/1.2 inherit;cursor:pointer;transition:background .2s,transform .2s}
-.aura-act:hover{background:#fff6e4;transform:translateY(-1px)}
+/* ---------- 分享卡片（极简） ---------- */
+.aura-share-panel{left:auto!important;right:14px;top:auto!important;bottom:58px;
+  width:min(292px,calc(100vw - 28px));padding:10px 12px 11px}
+.aura-share-actions{display:flex;flex-wrap:wrap;gap:6px}
+.aura-act{appearance:none;border:1px solid rgba(120,100,60,.26);background:transparent;color:#3a3226;
+  border-radius:8px;padding:6px 10px;font:12px/1.2 inherit;cursor:pointer;transition:background .2s}
+.aura-act:hover{background:rgba(180,150,100,.1)}
 .aura-act.primary{background:#2f3a35;color:#fff3dc;border-color:#2f3a35}
 
-/* ---------- 微信引导 ---------- */
+/* ---------- 微信引导（极简） ---------- */
 .aura-guide{position:fixed;inset:0;z-index:2147483003;display:flex;align-items:center;justify-content:center;
-  background:rgba(18,22,20,.46);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s ease}
+  background:rgba(18,22,20,.38);opacity:0;pointer-events:none;transition:opacity .25s ease}
 .aura-guide.open{opacity:1;pointer-events:auto}
-.aura-guide-card{width:min(360px,calc(100vw - 40px));box-sizing:border-box;padding:22px 24px;border-radius:18px;
-  background:linear-gradient(160deg,#fffdf8,#f4fbf8);color:#26332f;border:1px solid rgba(190,160,110,.32);
-  box-shadow:0 18px 60px rgba(20,30,25,.28)}
-.aura-guide-card h3{margin:0 0 10px;font-size:17px;font-weight:650;color:#2a352f}
-.aura-guide-card p{margin:0 0 16px;font-size:13px;line-height:1.8;color:#5c5344}
-.aura-guide-card .aura-act{margin-right:8px}
-.aura-toast{position:fixed;left:50%;bottom:86px;transform:translate(-50%,10px);z-index:2147483004;
-  padding:9px 14px;border-radius:999px;background:rgba(44,52,47,.92);color:#fff3dc;
-  font:13px/1.2 system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+.aura-guide-card{width:min(320px,calc(100vw - 40px));box-sizing:border-box;padding:16px 18px;border-radius:14px;
+  background:#fffdf8;color:#26332f;border:1px solid rgba(190,160,110,.26);
+  box-shadow:0 10px 34px rgba(20,30,25,.2)}
+.aura-guide-card h3{margin:0 0 8px;font-size:15px;font-weight:650;color:#2a352f}
+.aura-guide-card p{margin:0 0 12px;font-size:12px;line-height:1.7;color:#6a5f4e}
+.aura-guide-card .aura-act{margin-right:6px}
+.aura-toast{position:fixed;left:50%;bottom:80px;transform:translate(-50%,8px);z-index:2147483004;
+  padding:7px 12px;border-radius:999px;background:rgba(44,52,47,.9);color:#fff3dc;
+  font:12px/1.2 system-ui,sans-serif;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
 .aura-toast.show{opacity:1;transform:translate(-50%,0)}
 
 @media (prefers-reduced-motion:reduce){
@@ -175,7 +173,7 @@ const JS: &str = r##"
       '<span class="aura-lang"></span>' +
       '<button class="aura-close" type="button" aria-label="关闭">×</button></div>' +
       '<p class="aura-text"></p><div class="aura-chips"></div>' +
-      '<p class="aura-hint">首次悬停或轻触，语种会依次亮起；点选语种可固定。点击空白处关闭。</p>';
+      '<p class="aura-hint">首次悬停或轻触，语种每 2.6 秒依次亮起；点选语种可固定。点击空白处关闭。</p>';
     document.body.appendChild(trPanel);
     trPanel.querySelector('.aura-close').addEventListener('click', closeTr);
     return trPanel;
@@ -282,7 +280,7 @@ const JS: &str = r##"
       renderLang(last && dict[last] ? last : avail[0]);
     } else {
       step();
-      if (!reduce) trTimer = setInterval(step, 1350);
+      if (!reduce) trTimer = setInterval(step, 2600);
     }
   }
 
@@ -324,15 +322,14 @@ const JS: &str = r##"
     shPanel.className = 'aura-panel aura-share-panel';
     shPanel.setAttribute('role', 'dialog');
     shPanel.innerHTML =
-      '<div class="aura-panel-head"><span class="aura-lamp-dot" aria-hidden="true"></span>' +
-      '<span class="aura-lang">分享此页 · 外链</span>' +
-      '<button class="aura-close" type="button" aria-label="关闭">×</button></div>' +
-      '<p class="aura-share-title"></p><p class="aura-share-url"></p>' +
+      '<div class="aura-panel-head">' +
+      '<span class="aura-lang">分享 / Share</span>' +
+      '<button class="aura-close" type="button" aria-label="关闭 / Close">×</button></div>' +
       '<div class="aura-share-actions">' +
-      '<button class="aura-act primary" type="button" data-share="copy">复制链接</button>' +
-      '<button class="aura-act" type="button" data-share="native">系统分享</button>' +
-      '<button class="aura-act" type="button" data-share="wechat">微信分享</button>' +
-      '</div><p class="aura-hint">微信内请点右上角「…」发送给朋友或分享到朋友圈；链接为本站外链页面。</p>';
+      '<button class="aura-act primary" type="button" data-share="copy">复制 / Copy</button>' +
+      '<button class="aura-act" type="button" data-share="native">系统 / Share</button>' +
+      '<button class="aura-act" type="button" data-share="wechat">微信 / WeChat</button>' +
+      '</div>';
     document.body.appendChild(shPanel);
     shPanel.querySelector('.aura-close').addEventListener('click', closeShare);
     shPanel.querySelector('[data-share="copy"]').addEventListener('click', function () { copyLink(); });
@@ -343,8 +340,6 @@ const JS: &str = r##"
 
   function openShare(ev) {
     ensureShPanel();
-    shPanel.querySelector('.aura-share-title').textContent = document.title;
-    shPanel.querySelector('.aura-share-url').textContent = location.href.split('#')[0];
     if (window.innerWidth <= 640 || touch) shPanel.classList.add('sheet');
     shPanel.classList.add('open');
     shOpen = true;
@@ -359,7 +354,7 @@ const JS: &str = r##"
 
   function copyText(text) {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      return navigator.clipboard.writeText(text).then(function () { toast('链接已复制'); }, function () { fallbackCopy(text); });
+      return navigator.clipboard.writeText(text).then(function () { toast('已复制 / Copied'); }, function () { fallbackCopy(text); });
     }
     fallbackCopy(text);
     return Promise.resolve();
@@ -368,7 +363,7 @@ const JS: &str = r##"
     var t = document.createElement('textarea');
     t.value = text; t.style.position = 'fixed'; t.style.opacity = '0';
     document.body.appendChild(t); t.select();
-    try { document.execCommand('copy'); toast('链接已复制'); } catch (e) { toast('请手动复制链接'); }
+    try { document.execCommand('copy'); toast('已复制 / Copied'); } catch (e) { toast('请手动复制 / Copy manually'); }
     document.body.removeChild(t);
   }
   function copyLink() { copyText(location.href.split('#')[0]); track('share_copy'); }
@@ -378,7 +373,7 @@ const JS: &str = r##"
       navigator.share(data).then(function () { track('share_native'); }, function () {});
     } else {
       copyText(data.url);
-      toast('已复制，可粘贴到任意应用');
+      toast('已复制，可粘贴 / Copied');
       track('share_copy');
     }
   }
@@ -398,10 +393,10 @@ const JS: &str = r##"
       guide = document.createElement('div');
       guide.className = 'aura-guide';
       guide.innerHTML =
-        '<div class="aura-guide-card"><h3>分享到微信</h3>' +
-        '<p>1. 点击右上角「···」<br>2. 选择「发送给朋友」或「分享到朋友圈」</p>' +
-        '<button class="aura-act primary" type="button" data-share="copy">复制链接</button>' +
-        '<button class="aura-act" type="button" data-share="close">知道了</button></div>';
+        '<div class="aura-guide-card"><h3>分享到微信 / Share to WeChat</h3>' +
+        '<p>微信内点右上角「···」，发送给朋友 / Tap ··· at top right in WeChat to forward</p>' +
+        '<button class="aura-act primary" type="button" data-share="copy">复制 / Copy</button>' +
+        '<button class="aura-act" type="button" data-share="close">关闭 / Close</button></div>';
       document.body.appendChild(guide);
       guide.addEventListener('click', function (e) {
         if (e.target === guide) guide.classList.remove('open');
@@ -434,7 +429,7 @@ const JS: &str = r##"
     var div = document.createElement('div');
     div.className = 'aura-foot';
     div.innerHTML = '<span class="aura-links-label">项目集</span><div class="aura-links">' + links + '</div>' +
-      '<a href="#" class="aura-share-trigger" data-aura-share>分享此页 · 微信外链</a>';
+      '<a href="#" class="aura-share-trigger" data-aura-share>分享 / Share</a>';
     host.appendChild(div);
     bindShareTriggers(div);
   }
@@ -456,8 +451,8 @@ const JS: &str = r##"
     awake = true;
     document.body.classList.add('aura-awake');
     var orb = document.createElement('button');
-    orb.type = 'button'; orb.className = 'aura-orb'; orb.textContent = '分享';
-    orb.setAttribute('aria-label', '分享此页');
+    orb.type = 'button'; orb.className = 'aura-orb'; orb.textContent = '↗';
+    orb.setAttribute('aria-label', '分享 / Share');
     document.body.appendChild(orb);
     setTimeout(function () { orb.classList.add('show'); }, 140);
     orb.addEventListener('click', function (e) { openShare(e); });
@@ -585,7 +580,7 @@ pub fn footer_extra() -> String {
         ));
     }
     format!(
-        r##"<div class="aura-foot"><span class="aura-links-label">项目集</span><div class="aura-links">{links}</div><a href="#" class="aura-share-trigger" data-aura-share>分享此页 · 微信外链</a></div>"##
+        r##"<div class="aura-foot"><span class="aura-links-label">项目集</span><div class="aura-links">{links}</div><a href="#" class="aura-share-trigger" data-aura-share>分享 / Share</a></div>"##
     )
 }
 
